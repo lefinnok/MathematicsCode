@@ -35,6 +35,34 @@ class Matrix():
         else:
             self.matrix = '[Invalid Matrix]'
     
+    def __str__(self):
+        '''
+        this returns a formatted string for the matrix
+        
+        ⎡ 1 ⎤   
+        ⎢ 3 ⎥ 
+        ⎣ 8 ⎦
+        
+        '''
+        size = 2
+        if len(self.matrix) == 1:
+            res = str(self.matrix[0]).replace(',',''.join([' ' for _ in range(size-1)]))
+        else:
+            resls = [['⎢'] + [str(element) for element in row] + ['⎥'] for row in self.matrix]
+            resls[0][0] = '⎡'
+            resls[0][-1] = '⎤'
+            resls[-1][0] = '⎣'
+            resls[-1][-1] = '⎦'
+            maxlen = len(max([max(row,key=len) for row in resls], key=len)) #find the lengthiest string
+            res = ''
+            for row in resls:
+                for prev,aft in zip(row[:-1], row[1:]):
+                    res += prev + ''.join([' ' for _ in range((int(maxlen/2)+1 - int(len(aft)/2) - int(len(prev)/2) + (len(prev)+1)%2)+size)])
+                res += row[-1] + '\n'
+            
+        
+        return res
+    
     def form(self, size = 1):
         '''
         this returns a formatted string for the matrix
@@ -480,6 +508,7 @@ f = Matrix([[1,2,3,4]])
 I3 = IdentityMatrix(3)
 
 diag = DiagonalMatrix([1,2,6,3,5,1])
+
 
 #print(f.form())
 
