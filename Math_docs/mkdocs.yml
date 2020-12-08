@@ -2,4 +2,5 @@ site_name: MathematicsCode Documentations
 nav:
     - Home: index.md
     - Matrix: Matrix.md
+    - T: T.md
 theme: readthedocs
