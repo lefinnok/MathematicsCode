@@ -1,6 +1,10 @@
 site_name: MathematicsCode Documentations
 nav:
     - Home: index.md
+    - ====MATRIX====: null.md
+    - --CLASSES--: null.md
     - Matrix: Matrix.md
+    - --FUNCTIONS--: null.md
     - T: T.md
+    - det: det.md
 theme: readthedocs
