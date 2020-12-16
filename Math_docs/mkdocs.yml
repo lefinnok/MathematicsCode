@@ -1,10 +1,11 @@
 site_name: MathematicsCode Documentations
 nav:
     - Home: index.md
-    - ====MATRIX====: null.md
-    - --CLASSES--: null.md
+    - \|/: null.md
     - Matrix: Matrix.md
-    - --FUNCTIONS--: null.md
+    - \|/: null.md
     - T: T.md
     - det: det.md
-theme: readthedocs
+theme:
+      name: null
+      custom_dir: 'cinder-superhero'
