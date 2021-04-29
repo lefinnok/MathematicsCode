@@ -4,7 +4,7 @@ Created on Sun Dec 27 10:45:55 2020
 
 @author: lefin
 """
-from sympy import symbols, Symbol, Rational, sqrt, solve, cos, tan, sin, atan, pi
+from sympy import symbols, Symbol, Rational, sqrt, solve, cos, tan, sin, atan, pi, simplify
 
 
 i = Symbol('i')
@@ -16,11 +16,14 @@ def radPi(flt):
 
 class Z():
     def __init__(self,real,imaginary):
-        self.real = real
-        self.imaginary = imaginary
+        self.real = simplify(real)
+        self.imaginary = simplify(imaginary)
         self.r = sqrt(self.real**2+self.imaginary**2)
         if real != 0:
-            self.arg = atan(Rational(imaginary/real))
+            try: 
+                self.arg = atan(Rational(imaginary,real))
+            except:
+                self.arg = atan(imaginary/real)
         
     def conjugate(self):#returns conjugate
         return Z(self.real, self.imaginary*-1)
@@ -35,18 +38,24 @@ class Z():
         return sqrt(self.real**2+self.imaginary**2)
     
     def pol(self):
+        if not hasattr(self, 'arg'):
+            return f'{self.__str__()} is a pure Imaginary Number'
         if self.arg >=0:
             return f'{self.r}(cos({radPi(self.arg)}*𝜋) + isin({radPi(self.arg)}*𝜋))'
         else:
             return f'{self.r}(cos({radPi(self.arg)}*𝜋) - isin({radPi(self.arg*-1)}*𝜋))'
     
     def exp(self):
+        if not hasattr(self, 'arg'):
+            return f'{self.__str__()} is a pure Imaginary Number'
         if self.arg >=0:
             return f'{self.r}e^(i{radPi(self.arg)}*𝜋)'
         else:
             return f'{self.r}e^(-i{radPi(self.arg*-1)}*𝜋)'
     
     def __str__(self):
+        if self.real == 0:
+            return f'{self.imaginary}i'
         if self.imaginary >= 0:
             return f'{self.real} + {self.imaginary}i'
         else:
@@ -93,9 +102,12 @@ class i(Z):
     
 
     
-print(Z(1,1)*Z(1,1),-Z(2,-1)+Rational(1,2)+i(20))
+z = Symbol('z')
+x,y, = symbols('x,y')
+print(Z(-2,-2*sqrt(3)).pol())
 
-print(ZP(sqrt(2),pi/4))
+print(ZP(65536,8*pi/3))
+
 
 
 
